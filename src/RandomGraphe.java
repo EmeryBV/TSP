@@ -16,7 +16,8 @@ public class RandomGraphe extends Graphe {
 				v=v+1;
 			}
 			if(v<n) {
-				this.addArc(v,w,1);
+				double x = Math.random()*20;
+				this.addArc(v,w,(int) x);
 			}
 		}
 	}
@@ -32,7 +33,8 @@ public class RandomGraphe extends Graphe {
 		while (cond < m) {
 			int r = (int)(Math.random() * (((n*(n-1)/2) - 1) + 1));
 			if (!listeR.contains(r)) {
-				this.addArc(data[r][1],data[r][2],1);
+				double x = Math.random()*20;
+				this.addArc(data[r][1],data[r][2],(int) x);
 				listeR.add(r);
 				cond++;
 			}
