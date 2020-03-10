@@ -246,12 +246,12 @@ public class Graphe {
 	// Export d’un graphe sous format CSV selon la liste de ses arcs
 	// Format Source : Target
 	public void export() {
-		String buff = "Source,Target\n";
+		String buff = "Source,Target,valeur\n";
 		String sep = ",";
 		for (Noeud n : this.noeuds) {
 			for (Arc a : n.getSucc()) {
 				buff += a.getCible().getId() + sep +
-						a.getSource().getId() + "\n";
+						a.getSource().getId() + sep + a.getCout() + "\n";
 			}
 		}
 		File outputFile = new File(this.getClass() + ".csv");
