@@ -20,15 +20,20 @@ public class testGraphe {
 		for(Noeud noeud : G.getNoeuds()) {
 			boolean test = false ; 
 			if(noeud.getSucc().size()>=2) {
+				int nbrSucc = noeud.getSucc().size();
 				for(int i = 0 ;  i<noeud.getSucc().size();i++) {
-					//					System.out.println("Noeud cible = " + noeud.getSucc().get(i).getCible().getSucc());
+//					System.out.println("Noeud cible = " + noeud.getSucc().get(i).getCible().getSucc());
 					if(String.valueOf(noeud.getSucc().get(i).getCible().getSucc())=="[]") {
 
 						for(Noeud noeud2 : G.getNoeuds()) {
 							if(noeud2==noeud);
 							else if(noeud2.hasSuccesseur(noeud.getSucc().get(i).getCible().getId())) {
-								test=true ;
+								
+								nbrSucc--;
+								if(nbrSucc==1) {
+									test=true ;
 								break;
+								}
 							}
 						}
 
