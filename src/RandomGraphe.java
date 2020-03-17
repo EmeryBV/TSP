@@ -27,7 +27,7 @@ public class RandomGraphe extends Graphe {
 		}
 		ArrayList<Integer> listeR = new ArrayList();
 		int[][] data = bijection(n);
-		afficherTableau2D(data);
+		//afficherTableau2D(data);
 		int cond = 0;
 		while (cond < m) {
 			int r = (int)(Math.random() * (((n*(n-1)/2) - 1) + 1));
