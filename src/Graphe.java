@@ -16,6 +16,15 @@ public class Graphe {
 	private LinkedList<Noeud> noeuds;
 	/* This is how to declare HashMap */
 	private HashMap<Integer, Noeud> hmap;
+	private int nbrArc = 0 ; 
+	private int nbrNoeud = 0 ; 
+	public int getNbrArc() {
+		return nbrArc;
+	}
+
+	public int getNbrNoeud() {
+		return nbrNoeud;
+	}
 
 	public void parcoursprofR() {
 		// Initialisation de mark à False
@@ -132,6 +141,7 @@ public class Graphe {
 		if ( this.getHmap().get(n.getId())==null) {
 			this.getNoeuds().add(n); 
 			this.getHmap().put(n.getId(),n);
+			nbrNoeud++;
 		}
 	}
 
@@ -152,6 +162,7 @@ public class Graphe {
 			Noeud node= new Noeud(n);
 			this.getNoeuds().add(node);
 			this.getHmap().put(n, node);
+			nbrNoeud++;
 		}
 
 	}
@@ -169,6 +180,8 @@ public class Graphe {
 		if (this.getHmap().get(x) !=null && this.getHmap().get(y) != null) {
 			if ( !(this.getHmap().get(x).hasSuccesseur(y) ) ) 
 				new Arc(this.getHmap().get(x),this.getHmap().get(y), c);
+			nbrArc++;
+			System.out.println(nbrArc);
 		}
 
 	}
