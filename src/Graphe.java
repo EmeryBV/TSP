@@ -181,7 +181,7 @@ public class Graphe {
 			if ( !(this.getHmap().get(x).hasSuccesseur(y) ) ) 
 				new Arc(this.getHmap().get(x),this.getHmap().get(y), c);
 			nbrArc++;
-			System.out.println(nbrArc);
+			
 		}
 
 	}

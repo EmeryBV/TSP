@@ -27,20 +27,21 @@ public class GrapheMain {
         G.addArc(1, 2, 2);*/
 
         Graphe G = new Graphe();
-        for(int i=1;i<5;i++) {
+        for(int i=1;i<3;i++) {
             G.addNoeud(i);
         }
         G.addArc(1, 2, 4);
-        G.addArc(1, 3, 3);
-//        G.addArc(1, 4, 2);
-//        G.addArc(3, 4, 2);
-//        G.addArc(3, 2, 1);
-//        G.addArc(4, 2, 1);
-
+        G.addArc(2, 3, 3);
+        G.addArc(1, 4, 2);
+       
+       
         //System.out.println(G);
         //G.export();
        testGraphe GT = new testGraphe(G);
         GT.testConnexe();
+        G.export();
+        
+
         
 //        analyse.analyserLiaisons(1,0,"1",analyse.getArcs(),1);
 //        analyse.Afficher();
