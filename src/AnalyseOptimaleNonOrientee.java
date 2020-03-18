@@ -30,17 +30,23 @@ public class AnalyseOptimaleNonOrientee {
 	public void analyse(int noeudDepart) {
 		this.noeudDepart = noeudDepart;
 		analyserLiaisons(noeudDepart,0,"",arcs,1,0);
-		afficher();
+		//afficher();
+		int coutMin = chemins.get(0).getCout();
+		for (Chemin c: chemins) {
+			if (c.getCout() < coutMin) coutMin=c.getCout();
+		}
+		System.out.println("Les chemins les moins couteux, avec un cout total = "+coutMin+", sont:");
+		for (Chemin c: chemins) {
+			if (coutMin==c.getCout()) {
+				System.out.println(c.getChemin());
+			}
+		}
+		
 	}
 	
 	public void analyserLiaisons(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
 		chemin+=noeud+"->";
 		totalCout+=coutLiaison;
-		System.out.println("On cherche les liaisons avec le noeud: "+noeud+", parmis les liaisons suivantes:");
-		for (int[] arc: a) {
-			System.out.println(arc[0]+" -> "+arc[1]+", cout de la liaison: "+arc[2]);
-		}
-		System.out.println("Le chemin parcouru est "+chemin);
 		noeudParcourus++;
 		for (int i=0; i<a.size();i++) {
 			if (a.get(i)[0] == noeud) {
@@ -51,13 +57,12 @@ public class AnalyseOptimaleNonOrientee {
 					}
 				}
 				if (!clone.isEmpty()) { 
-					System.out.println("Trouvé OK");
 					analyserLiaisons(a.get(i)[1] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
 				}
-				else { 
-					System.out.println("Pourquoi !?!?");
+				else {
 					totalCout+=a.get(i)[2];
 					chemin+=a.get(i)[1];
+					noeud=a.get(i)[1];
 				}
 			}
 			else if (a.get(i)[1] == noeud) {
@@ -68,35 +73,27 @@ public class AnalyseOptimaleNonOrientee {
 					}
 				}
 				if (!clone.isEmpty()) {
-					System.out.println("Trouvé OK");
 					analyserLiaisons(a.get(i)[0] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
 				}
-				else { 
-					System.out.println("Pourquoi !?!?");
+				else {
+					noeud=a.get(i)[0];
 					totalCout+=a.get(i)[2];
 					chemin+=a.get(i)[0];
 				}
 			}
-			System.out.println("Liaison "+a.get(i)[0]+" -> "+a.get(i)[1]+" non retenue");
 		}
 		if (noeudParcourus == totalNoeud) {
-			
-			Chemin c = new Chemin(chemin,totalCout);
-			chemins.add(c);
-			System.out.println("Nous sommes sortis de la boucle FOR et tous les noeuds ont été parcourus, chemin final: "+chemin);
-		}
-		else {
-			System.out.println("Nous sommes sortis de la boucle FOR et tous les noeuds n'ont pas été parcourus, seulement "+noeudParcourus+" noeud(s) ont été parcourus");
+			for (int[] arc: arcs) {
+				if ((arc[1] == noeud && arc[0] == noeudDepart) || (arc[0] == noeud && arc[1] == noeudDepart)) {
+					chemin+="->"+noeudDepart;
+					totalCout+=arc[2];
+					Chemin c = new Chemin(chemin,totalCout);
+					chemins.add(c);
+					break;
+				}
+			}
 		}
 		noeudParcourus--;
-	}
-	
-	public ArrayList<int[]> getArcs() {
-		return arcs;
-	}
-
-	public void setArcs(ArrayList<int[]> arcs) {
-		this.arcs = arcs;
 	}
 	
 	public void afficher() {
