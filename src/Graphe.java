@@ -178,10 +178,10 @@ public class Graphe {
 			if ( !(noeudx.hasSuccesseur(y) ) ) 
 				new Arc(noeudx,noeudy);*/
 		if (this.getHmap().get(x) !=null && this.getHmap().get(y) != null) {
-			if ( !(this.getHmap().get(x).hasSuccesseur(y) ) ) 
+			if ( !(this.getHmap().get(x).hasSuccesseur(y) )&& !(this.getHmap().get(y).hasSuccesseur(x)) )
 				new Arc(this.getHmap().get(x),this.getHmap().get(y), c);
 			nbrArc++;
-			
+			System.out.println(nbrArc);
 		}
 
 	}

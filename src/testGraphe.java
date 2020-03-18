@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 public class testGraphe {
 
@@ -18,16 +19,17 @@ public class testGraphe {
 
 	public boolean liason() {
 		for(Noeud noeud : G.getNoeuds()) {
+			LinkedList<Arc> listSucc = noeud.getSucc();
 			boolean test = false ; 
 			if(noeud.getSucc().size()>=2) {
-				int nbrSucc = noeud.getSucc().size();
-				for(int i = 0 ;  i<noeud.getSucc().size();i++) {
+				int nbrSucc = listSucc.size();
+				for(int i = 0 ;  i<listSucc.size();i++) {
 //					System.out.println("Noeud cible = " + noeud.getSucc().get(i).getCible().getSucc());
-					if(String.valueOf(noeud.getSucc().get(i).getCible().getSucc())=="[]") {
+					if(listSucc.get(i).getCible().getSucc().isEmpty()) {
 
 						for(Noeud noeud2 : G.getNoeuds()) {
 							if(noeud2==noeud);
-							else if(noeud2.hasSuccesseur(noeud.getSucc().get(i).getCible().getId())) {
+							else if(noeud2.hasSuccesseur(listSucc.get(i).getCible().getId())) {
 								
 								nbrSucc--;
 								if(nbrSucc==1) {
