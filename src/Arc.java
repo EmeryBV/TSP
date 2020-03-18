@@ -1,3 +1,4 @@
+
 public class Arc {
 	
 	private Noeud	source;
@@ -16,7 +17,7 @@ public class Arc {
 	
 	@Override
 	public String toString() {
-		return "Arc [source= " + source.getId() + ", cible= " + cible.getId() + ", cout : " + cout + " ]";
+		return "Arc [source=" + source.getId() + ", cible=" + cible.getId() + "cout : " + cout + "]";
 	}
 
 	public Noeud getSource() {
@@ -44,3 +45,4 @@ public class Arc {
 	}
 	
 }
+
