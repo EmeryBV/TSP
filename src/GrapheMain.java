@@ -41,8 +41,7 @@ public class GrapheMain {
         //G.export();
         
         AnalyseOptimaleNonOrientee analyse = new AnalyseOptimaleNonOrientee(G);
-        analyse.analyserLiaisons(1,0,"1",analyse.getArcs(),1);
-        analyse.Afficher();
+        analyse.analyse(1);
 	}
 
 }
