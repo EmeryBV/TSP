@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class RandomGraphe extends Graphe {
 
@@ -16,7 +17,8 @@ public class RandomGraphe extends Graphe {
 				v=v+1;
 			}
 			if(v<n) {
-				this.addArc(v,w,1);
+				double x = Math.random()*20;
+				this.addArc(v,w,(int) x);
 			}
 		}
 	}
@@ -27,14 +29,30 @@ public class RandomGraphe extends Graphe {
 		}
 		ArrayList<Integer> listeR = new ArrayList();
 		int[][] data = bijection(n);
-		//afficherTableau2D(data);
+		afficherTableau2D(data);
 		int cond = 0;
 		while (cond < m) {
 			int r = (int)(Math.random() * (((n*(n-1)/2) - 1) + 1));
 			if (!listeR.contains(r)) {
-				this.addArc(data[r][1],data[r][2],1);
+				double x = Math.random()*20;
+				this.addArc(data[r][1],data[r][2],(int) x);
 				listeR.add(r);
 				cond++;
+			}
+		}
+	}
+	//arbre complet
+	public RandomGraphe(int n) {
+		for(int i=0;i<n;i++) {
+			this.addNoeud(i);
+		}
+		LinkedList<Noeud> listNoeud =this.getNoeuds() ;
+		for ( int i = 0 ; i<listNoeud.size();i++ ) {
+			for(int y =0; y<listNoeud.size();y++) {
+				if(i!=y ){
+					double x = Math.random()*20;
+					this.addArc(i,y,(int) x);
+				}
 			}
 		}
 	}

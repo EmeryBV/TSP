@@ -14,8 +14,16 @@ import java.nio.file.Paths;
 
 public class Graphe {
 	private LinkedList<Noeud> noeuds;
-	/* This is how to declare HashMap */
 	private HashMap<Integer, Noeud> hmap;
+	private int nbrArc = 0 ; 
+	private int nbrNoeud = 0 ; 
+	public int getNbrArc() {
+		return nbrArc;
+	}
+
+	public int getNbrNoeud() {
+		return nbrNoeud;
+	}
 
 	public void parcoursprofR() {
 		// Initialisation de mark Ã  False
@@ -132,6 +140,7 @@ public class Graphe {
 		if ( this.getHmap().get(n.getId())==null) {
 			this.getNoeuds().add(n); 
 			this.getHmap().put(n.getId(),n);
+			nbrNoeud++;
 		}
 	}
 
@@ -152,6 +161,7 @@ public class Graphe {
 			Noeud node= new Noeud(n);
 			this.getNoeuds().add(node);
 			this.getHmap().put(n, node);
+			nbrNoeud++;
 		}
 
 	}
@@ -167,8 +177,9 @@ public class Graphe {
 			if ( !(noeudx.hasSuccesseur(y) ) ) 
 				new Arc(noeudx,noeudy);*/
 		if (this.getHmap().get(x) !=null && this.getHmap().get(y) != null) {
-			if ( !(this.getHmap().get(x).hasSuccesseur(y) ) ) 
+			if ( !(this.getHmap().get(x).hasSuccesseur(y) )&& !(this.getHmap().get(y).hasSuccesseur(x)) )
 				new Arc(this.getHmap().get(x),this.getHmap().get(y), c);
+			nbrArc++;
 		}
 
 	}
@@ -246,12 +257,12 @@ public class Graphe {
 	// Export d’un graphe sous format CSV selon la liste de ses arcs
 	// Format Source : Target
 	public void export() {
-		String buff = "Source,Target\n";
+		String buff = "Source,Target,valeur\n";
 		String sep = ",";
 		for (Noeud n : this.noeuds) {
 			for (Arc a : n.getSucc()) {
 				buff += a.getCible().getId() + sep +
-						a.getSource().getId() + "\n";
+						a.getSource().getId() + sep + a.getCout() + "\n";
 			}
 		}
 		File outputFile = new File(this.getClass() + ".csv");

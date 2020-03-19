@@ -22,4 +22,7 @@ public class Chemin {
 	public void setCout(int cout) {
 		this.cout = cout;
 	}
+	public String toString() {
+		return "Chemin: "+this.getChemin()+", cout total: "+this.getCout();
+	}
 }

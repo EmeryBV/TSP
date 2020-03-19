@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-public class AnalyseOptimaleNonOrientee {
+public class AnalyseOptimale {
 
 	private ArrayList<int[]> arcs = new ArrayList();
 	private int totalNoeud;
 	private int noeudDepart = 0;
 	private ArrayList<Chemin> chemins = new ArrayList();
 	
-	public AnalyseOptimaleNonOrientee(Graphe G) {
+	public AnalyseOptimale(Graphe G, int noeud) {
 		int n1;
 		int n2;
 		int cout;
@@ -25,23 +25,10 @@ public class AnalyseOptimaleNonOrientee {
             	arcs.add(arc);
             }
         }
-	}
-	
-	public void analyse(int noeudDepart) {
-		this.noeudDepart = noeudDepart;
+		this.noeudDepart = noeud;
 		analyserLiaisons(noeudDepart,0,"",arcs,1,0);
-		//afficher();
-		int coutMin = chemins.get(0).getCout();
-		for (Chemin c: chemins) {
-			if (c.getCout() < coutMin) coutMin=c.getCout();
-		}
-		System.out.println("Les chemins les moins couteux, avec un cout total = "+coutMin+", sont:");
-		for (Chemin c: chemins) {
-			if (coutMin==c.getCout()) {
-				System.out.println(c.getChemin());
-			}
-		}
-		
+		//this.afficherTousLesChemins();
+		this.afficherCheminsMoinsCouteux();
 	}
 	
 	public void analyserLiaisons(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
@@ -96,9 +83,30 @@ public class AnalyseOptimaleNonOrientee {
 		noeudParcourus--;
 	}
 	
-	public void afficher() {
+	public void afficherTousLesChemins() {
 		for (Chemin c: chemins) {
-			System.out.println("Chemin: "+c.getChemin()+", cout total: "+c.getCout());
+			System.out.println(c.toString());
 		}
+	}
+	
+	private void afficherCheminsMoinsCouteux() {
+		int coutMin = chemins.get(0).getCout();
+		for (Chemin c: chemins) {
+			if (c.getCout() < coutMin) coutMin=c.getCout();
+		}
+		System.out.println("Les chemins les moins couteux, avec un cout = "+coutMin+", sont :");
+		for (Chemin c: chemins) {
+			if (coutMin==c.getCout()) {
+				System.out.println(c.toString());
+			}
+		}
+	}
+
+	public ArrayList<Chemin> getChemins() {
+		return chemins;
+	}
+
+	public void setChemins(ArrayList<Chemin> chemins) {
+		this.chemins = chemins;
 	}
 }
