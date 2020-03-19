@@ -30,7 +30,8 @@ public class AnalyseGloutonne {
 		this.chemin="";
 		this.noeudDepart = noeud;
 		this.algorithme(noeud,0,"",arcs,0,0);
-		System.out.println(this.cheminResult);
+		//System.out.println("Point de depart: "+noeud);
+		//System.out.println(this.cheminResult);
 	}
 	
 	

@@ -26,12 +26,12 @@ public class AnalyseOptimale {
             }
         }
 		this.noeudDepart = noeud;
-		analyserLiaisons(noeudDepart,0,"",arcs,1,0);
+		algorithme(noeudDepart,0,"",arcs,1,0);
 		//this.afficherTousLesChemins();
 		this.afficherCheminsMoinsCouteux();
 	}
 	
-	public void analyserLiaisons(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
+	public void algorithme(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
 		chemin+=noeud+"->";
 		totalCout+=coutLiaison;
 		noeudParcourus++;
@@ -44,7 +44,7 @@ public class AnalyseOptimale {
 					}
 				}
 				if (!clone.isEmpty()) { 
-					analyserLiaisons(a.get(i)[1] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
+					algorithme(a.get(i)[1] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
 				}
 				else {
 					totalCout+=a.get(i)[2];
@@ -60,7 +60,7 @@ public class AnalyseOptimale {
 					}
 				}
 				if (!clone.isEmpty()) {
-					analyserLiaisons(a.get(i)[0] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
+					algorithme(a.get(i)[0] ,totalCout,chemin,clone,noeudParcourus,a.get(i)[2]);
 				}
 				else {
 					noeud=a.get(i)[0];
