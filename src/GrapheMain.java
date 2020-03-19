@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
+
 public class GrapheMain {
 
 	public static void main(String[] args) {
@@ -21,22 +22,23 @@ public class GrapheMain {
         //System.out.println(G);
         G.export();*/
         
-        RandomGraphe RG = new RandomGraphe(9);       
+        RandomGraphe RG = new RandomGraphe(10);       
         //System.out.println(RG);
         RG.export();
         
         // ANALYSE OPTIMALE //
-        
+        long startTime = System.currentTimeMillis();
         System.out.println("Debut analyse optimale");
         System.out.println("...");
         int noeudDepart = RG.getNoeuds().get(0).getId();
         AnalyseOptimale optimale = new AnalyseOptimale(RG,noeudDepart);
         System.out.println();
-        System.out.println("Fin de l'analyse optimale avec "+optimale.getChemins().size()+" chemins explorés");
+        long endTime = System.currentTimeMillis();
+        System.out.println("Fin de l'analyse optimale avec un temps d'execution de "+(endTime-startTime)+" ms et "+optimale.getChemins().size()+" chemins explorés");
     	System.out.println();
-    	
+         
     	// ANALYSE GLOUTONNE //
-    	
+        startTime = System.currentTimeMillis();
     	System.out.println("Debut analyse gloutonne");
         System.out.println("...");
         ArrayList<Chemin> chemins = new ArrayList();
@@ -46,8 +48,8 @@ public class GrapheMain {
         }
         afficherCheminsMoinsCouteux(chemins);
         System.out.println();
-    	System.out.println("Fin de l'analyse gloutonne avec "+RG.getNoeuds().size()+" chemins explorés");
-    	
+        endTime = System.currentTimeMillis();
+    	System.out.println("Fin de l'analyse gloutonne avec un temps d'execution de "+(endTime-startTime)+" ms et "+RG.getNoeuds().size()+" chemins explorés");
 	}
 	
 	private static void afficherCheminsMoinsCouteux(ArrayList<Chemin> chemins) {
@@ -62,5 +64,5 @@ public class GrapheMain {
 			}
 		}
 	}
-
+	
 }

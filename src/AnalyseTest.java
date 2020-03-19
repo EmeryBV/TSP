@@ -73,6 +73,27 @@ class AnalyseTest {
 	@Test
 	void testAnalyseGloutonne() {
 		
+		Graphe G = new Graphe();
+        for(int i=1;i<5;i++) {
+            G.addNoeud(i);
+        }
+        G.addArc(1, 2, 4);        
+        G.addArc(1, 3, 3);
+        G.addArc(1, 4, 2);        
+        G.addArc(3, 4, 2);       
+        G.addArc(3, 2, 1);      
+        G.addArc(4, 2, 1);        
+        
+        System.out.println("Point de départ : "+1);
+        AnalyseGloutonne gloutonne1 = new AnalyseGloutonne(G, 1); 
+        System.out.println(gloutonne1.getCheminResult().getChemin());
+        assertEquals("1->4->2->3->1", gloutonne1.getCheminResult().getChemin());
+        assertSame(7, gloutonne1.getCheminResult().getCout());
+                
+        System.out.println("Point de départ : "+2);
+        AnalyseGloutonne gloutonne2 = new AnalyseGloutonne(G, 2); 
+        assertEquals("2->3->4->1->2", gloutonne2.getCheminResult().getChemin());
+        assertSame(9, gloutonne2.getCheminResult().getCout());
 	}
 
 }

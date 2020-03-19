@@ -41,7 +41,7 @@ public class RandomGraphe extends Graphe {
 			}
 		}
 	}
-	//arbre complet
+	
 	public RandomGraphe(int n) {
 		for(int i=0;i<n;i++) {
 			this.addNoeud(i);
@@ -50,7 +50,7 @@ public class RandomGraphe extends Graphe {
 		for ( int i = 0 ; i<listNoeud.size();i++ ) {
 			for(int y =0; y<listNoeud.size();y++) {
 				if(i!=y ){
-					double x = Math.random()*20;
+					int x = (int)(Math.random()*20);
 					this.addArc(i,y,(int) x);
 				}
 			}
