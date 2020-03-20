@@ -1,8 +1,16 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * La classe RendomGraphe nous permet de pouvoir générer des graphes.
+ */
 public class RandomGraphe extends Graphe {
 
+	/**
+	 * Constructeur de la classe RandomGraphe. Permet de générer des graphes aléatoires.
+	 * @param n, le nombre de noeud
+	 * @param p, probabilité minimale d'acceptation de création d'un arc
+	 */
 	public RandomGraphe(int n, double p) {
 		for(int i=0;i<n;i++) {
 			this.addNoeud(i);
@@ -23,6 +31,11 @@ public class RandomGraphe extends Graphe {
 		}
 	}
 
+	/**
+	 * Constructeur de la classe RandomGraphe. Permet de générer des graphes aléatoires en fonction du nombre de noeud et d'arc.
+	 * @param n, le nombre de noeud
+	 * @param m, le nombre d'arc
+	 */
 	public RandomGraphe(int n, int m) {
 		for(int i=0;i<n;i++) {
 			this.addNoeud(i);
@@ -42,6 +55,10 @@ public class RandomGraphe extends Graphe {
 		}
 	}
 	
+	/**
+	 * Constructeur de la classe RandomGraphe. Permet de générer des graphes complets et pondérés.
+	 * @param n, le nombre de noeud
+	 */
 	public RandomGraphe(int n) {
 		for(int i=0;i<n;i++) {
 			this.addNoeud(i);
@@ -50,13 +67,18 @@ public class RandomGraphe extends Graphe {
 		for ( int i = 0 ; i<listNoeud.size();i++ ) {
 			for(int y =0; y<listNoeud.size();y++) {
 				if(i!=y ){
-					int x = (int)(Math.random()*20);
+					int x = 1 + (int)(Math.random() * ((20 - 1) + 1));
 					this.addArc(i,y,(int) x);
 				}
 			}
 		}
 	}
 
+	/**
+	 * Méthode représentant tous les arcs que l'on peut créer à partir d'un graphe de i noeuds.
+	 * @param i, le nombre de noeud du graphe
+	 * @return le tableau contenant les arcs et leur indice
+	 */
 	private int [][] bijection(int i) {
 		int totalArcs = i*(i-1)/2;
 		int[][] data = new int[totalArcs][3];
@@ -72,13 +94,10 @@ public class RandomGraphe extends Graphe {
 		return data;
 	}
 
-	public static int fact (int n) {
-		int f = 1;
-		for (int i=1; i<=n; i++)
-			f=f*i;
-		return(f);
-	}
-
+	/**
+	 * Méthode permettant d'afficher un tableau à deux dimensions.
+	 * @param data, tableau à deux dimensions
+	 */
 	public void afficherTableau2D(int [][] data) {
 		int i = 0, j = 0;
 		for(i=0;i<data.length;i++){

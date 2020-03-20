@@ -2,6 +2,9 @@
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
+/**
+ * Cette classe fait reference à l'analyse gloutonne.
+ */
 public class AnalyseGloutonne {
 	
 	private ArrayList<int[]> arcs = new ArrayList();
@@ -10,6 +13,11 @@ public class AnalyseGloutonne {
 	private Chemin cheminResult;
 	private String chemin;
 	
+	/**
+	 * Constructeur de la classe AnalyseGloutonne.
+	 * @param G, représente le graphe à analyser
+	 * @param noeud, représente le noeud d'où l'analyse va commencer
+	 */
 	public AnalyseGloutonne(Graphe G,int noeud) {
 		int n1;
 		int n2;
@@ -34,7 +42,17 @@ public class AnalyseGloutonne {
 		//System.out.println(this.cheminResult);
 	}
 	
-	
+	/**
+	 * Cette méthode itérative représente l'algorithme du plus proche voisin. Il determine le meilleur chemin en fonction
+	 * d'un noeud de depart, en choisissant à chaque fois, l'arc avec le cout le moins élévé. Elle permet également de
+	 * mémoriser ce chemin et son cout total.
+	 * @param noeud
+	 * @param totalCout
+	 * @param chemin
+	 * @param a, la liste d'arcs restants
+	 * @param noeudParcourus
+	 * @param coutLiaison
+	 */
 	public void algorithme(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
 		chemin+=noeud+"->";
 		totalCout+=coutLiaison;
@@ -56,7 +74,6 @@ public class AnalyseGloutonne {
 				}
 			}
 			else if (a.get(i)[1] == noeud) {
-				//ArrayList<int[]> clone = new ArrayList();
 				for(int[] tab: a) {
 					if (tab[0] != noeud && tab[1] != noeud) {
 						clone.add(tab);
@@ -101,12 +118,18 @@ public class AnalyseGloutonne {
 		}
 	}
 
-
+	/**
+	 * Represente le getter de l'attribut cheminResult.
+	 * @return l'attribut cheminResult
+	 */
 	public Chemin getCheminResult() {
 		return cheminResult;
 	}
 
-
+	/**
+	 * Represente le setter de l'attribut cheminResult.
+	 * @param cheminResult
+	 */
 	public void setCheminResult(Chemin cheminResult) {
 		this.cheminResult = cheminResult;
 	}

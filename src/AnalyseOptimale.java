@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
+/**
+ * Cette classe fait reference à l'analyse optimale.
+ */
 public class AnalyseOptimale {
 
 	private ArrayList<int[]> arcs = new ArrayList();
@@ -8,6 +11,11 @@ public class AnalyseOptimale {
 	private int noeudDepart = 0;
 	private ArrayList<Chemin> chemins = new ArrayList();
 	
+	/**
+	 * Constructeur de la classe AnalyseOptimale.
+	 * @param G, représente le graphe à analyser
+	 * @param noeud, représente le noeud d'où l'analyse va débuter
+	 */
 	public AnalyseOptimale(Graphe G, int noeud) {
 		int n1;
 		int n2;
@@ -31,6 +39,17 @@ public class AnalyseOptimale {
 		this.afficherCheminsMoinsCouteux();
 	}
 	
+	/**
+	 * Cette méthode itérative représente l'algorithme de l'analyse optimale. Elle determine tous les chemins 
+	 * pouvant être empruntés à partir d'un noeud de depart, qu'elle sauvegarde dans une liste de chemins avec 
+	 * leur cout total respectif.
+	 * @param noeud
+	 * @param totalCout
+	 * @param chemin
+	 * @param a, la liste d'arcs restants
+	 * @param noeudParcourus
+	 * @param coutLiaison
+	 */
 	public void algorithme(int noeud,int totalCout,String chemin, ArrayList<int[]> a, int noeudParcourus,int coutLiaison) {
 		chemin+=noeud+"->";
 		totalCout+=coutLiaison;
@@ -83,12 +102,18 @@ public class AnalyseOptimale {
 		noeudParcourus--;
 	}
 	
+	/**
+	 * Méthode qui affiche tous les chemins identifiés.
+	 */
 	public void afficherTousLesChemins() {
 		for (Chemin c: chemins) {
 			System.out.println(c.toString());
 		}
 	}
 	
+	/**
+	 * Méthode qui affiche les chemins avec le cout total le plus bas.
+	 */
 	private void afficherCheminsMoinsCouteux() {
 		int coutMin = chemins.get(0).getCout();
 		for (Chemin c: chemins) {
@@ -102,10 +127,18 @@ public class AnalyseOptimale {
 		}
 	}
 
+	/**
+	 * Représente le getter de l'attribut chemins.
+	 * @return l'attribut chemins
+	 */
 	public ArrayList<Chemin> getChemins() {
 		return chemins;
 	}
 
+	/**
+	 * Représente le setter de l'attribut chemins.
+	 * @param chemins
+	 */
 	public void setChemins(ArrayList<Chemin> chemins) {
 		this.chemins = chemins;
 	}

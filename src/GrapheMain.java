@@ -2,31 +2,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-
+/**
+ * Représente la classe principale dans laquelle le programme va être lancé.
+ */
 public class GrapheMain {
 
+	/**
+	 * Méthode principale du programme TSP.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		/*
-		Graphe G = new Graphe();
-        for(int i=1;i<5;i++) {
-            G.addNoeud(i);
+		Graphe RG = new Graphe();
+        for(int i=0;i<4;i++) {
+            RG.addNoeud(i);
         }
-        G.addArc(1, 2, 4);
-        G.addArc(1, 3, 3);
-        G.addArc(1, 4, 2);
-        G.addArc(3, 4, 2);
-        G.addArc(3, 2, 1);
-        G.addArc(4, 2, 1);
+        RG.addArc(0, 1, 4);
+        RG.addArc(0, 2, 3);
+        RG.addArc(0, 3, 2);
+        RG.addArc(2, 3, 2);
+        RG.addArc(2, 1, 1);
+        RG.addArc(3, 1, 1);
         
         //System.out.println(G);
-        G.export();*/
+        RG.export();*/
         
-        RandomGraphe RG = new RandomGraphe(10);       
+		
+        RandomGraphe RG = new RandomGraphe(9);       
         //System.out.println(RG);
         RG.export();
         
-        // ANALYSE OPTIMALE //
+        /////////////////////// ANALYSE OPTIMALE ///////////////////////
+        
         long startTime = System.currentTimeMillis();
         System.out.println("Debut analyse optimale");
         System.out.println("...");
@@ -35,9 +43,13 @@ public class GrapheMain {
         System.out.println();
         long endTime = System.currentTimeMillis();
         System.out.println("Fin de l'analyse optimale avec un temps d'execution de "+(endTime-startTime)+" ms et "+optimale.getChemins().size()+" chemins explorés");
+    	
+    	///////////////////////////// FIN //////////////////////////////
+        
     	System.out.println();
          
-    	// ANALYSE GLOUTONNE //
+    	/////////////////////// ANALYSE GLOUTONNE ///////////////////////
+    	
         startTime = System.currentTimeMillis();
     	System.out.println("Debut analyse gloutonne");
         System.out.println("...");
@@ -50,8 +62,14 @@ public class GrapheMain {
         System.out.println();
         endTime = System.currentTimeMillis();
     	System.out.println("Fin de l'analyse gloutonne avec un temps d'execution de "+(endTime-startTime)+" ms et "+RG.getNoeuds().size()+" chemins explorés");
+    	
+    	///////////////////////////// FIN //////////////////////////////
 	}
 	
+	/***
+	 * Permet d'afficher les chemins avec le cout total le plus bas à partir d'une liste de chemins remplis par l'analyse gloutonne.
+	 * @param chemins, liste de chemins
+	 */
 	private static void afficherCheminsMoinsCouteux(ArrayList<Chemin> chemins) {
 		int coutMin = chemins.get(0).getCout();
 		for (Chemin c: chemins) {

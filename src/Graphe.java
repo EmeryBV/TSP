@@ -12,131 +12,37 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Represente la classe de l'objet Graphe.
+ */
 public class Graphe {
+
 	private LinkedList<Noeud> noeuds;
 	private HashMap<Integer, Noeud> hmap;
 	private int nbrArc = 0 ; 
-	private int nbrNoeud = 0 ; 
+	private int nbrNoeud = 0 ;
+
+	/**
+	 * Retourne le nombre d'arc.
+	 * @return un entier qui permet d'avoir le nombre d'arc
+	 */
 	public int getNbrArc() {
 		return nbrArc;
 	}
 
+	/**
+	 * Retourne le nombre de noeud.
+	 * @return un entier qui permet d'avoir le nombre de noeud
+	 */
 	public int getNbrNoeud() {
 		return nbrNoeud;
 	}
 
-	public void parcoursprofR() {
-		// Initialisation de mark √† False
-		for(Noeud node : this.noeuds) node.setMark(false);
-		//Pout tout noeud non mark√©, 
-		for(Noeud node : this.noeuds) {
-			if ( ! node.isMark()) {
-				//lancer le parcours en profondeur prof (
-				this.profR(node,"");
-			}
-		}
-
-	}
-
-	public void profR(Noeud n, String buffer) {
-		// marker n
-		n.setMark(true);
-		//afficher n
-		//System.out.println("Mark " +n.getId());
-		//this.buffer += n.getId()+"\n"+this.buffer;
-		System.out.println(buffer +n.getId());
-
-		//Pour tout successeur non mark√©, appeler profR(successeur)
-		for(Arc arc : n.getSucc()) {
-			//System.out.println(" on va de "+n.getId()+"->"+arc.getCible().getId());
-			if ( ! arc.getCible().isMark()) {
-				this.profR(arc.getCible(),buffer + "--");
-			}
-		}
-	}
-
-
-	public void parcoursprofI() {
-		// Initialisation de mark √† False
-		for(Noeud node : this.noeuds) node.setMark(false);
-		//Pout tout noeud non mark√©, 
-		for(Noeud node : this.noeuds) {
-			if ( ! node.isMark()) {
-				//lancer le parcours en profondeur prof (
-				this.profI(node);
-			}
-		}
-
-	}
-	public void profI(Noeud n) {
-		Stack<Noeud> st;
-		st = new Stack<Noeud>();
-		n.setMark(true);
-		st.push(n);
-		System.out.println(n.getId());
-		Noeud node;
-		boolean trouve = true;
-		while (! st.isEmpty()) {
-			node = st.peek();
-			trouve = true;
-			for (Arc arc : node.getSucc()) trouve = trouve && arc.getCible().isMark();
-			if (trouve) {
-				node = st.pop();
-
-			}
-			else {
-				for (Arc arc : node.getSucc()) {
-					if (! arc.getCible().isMark()) {
-						arc.getCible().setMark(true);
-						st.push(arc.getCible());
-						System.out.println(arc.getCible().getId());
-					}
-				}
-			}
-		}
-	}
-
-	public void parcourslargeur() {
-		// Initialisation de mark √† False
-		for(Noeud node : this.noeuds) node.setMark(false);
-		//Pout tout noeud non mark√©, 
-		for(Noeud node : this.noeuds) {
-			if ( ! node.isMark()) {
-				//lancer le parcours en profondeur prof (
-				this.largeur(node);
-			}
-		}
-
-	}
-
-	public void largeur(Noeud n) {
-		//cr√©ation file
-		LinkedList<Noeud> file;
-		file = new LinkedList<Noeud>();
-		n.setMark(true);
-		file.addFirst(n);
-		System.out.println(n.getId());
-		Noeud node;
-		while (! file.isEmpty()) {
-			node = file.getLast();
-			file.removeLast();
-			for (Arc arc : node.getSucc()) {
-				if (! arc.getCible().isMark()) {
-					arc.getCible().setMark(true);
-					file.addFirst(arc.getCible());
-					System.out.println(arc.getCible().getId());
-				}
-			}
-		}
-	}
-
+	/**
+	 * Permet d'ajouter un noeud ‡ un graphe. 
+	 * @param n Noeud que l'on souhaite ajouter 
+	 */
 	public void addNoeud(Noeud n) {
-		// recherche si l'id apparait dans un Noeud de la liste
-		// Ajoute le Noeud √† la liste sinon
-		/*		if (! (this.getNoeuds().contains(n))) {
-			this.getNoeuds().add(n); 
-			this.getHmap().put(n.getId(),n);
-		}*/
 		if ( this.getHmap().get(n.getId())==null) {
 			this.getNoeuds().add(n); 
 			this.getHmap().put(n.getId(),n);
@@ -144,19 +50,11 @@ public class Graphe {
 		}
 	}
 
+	/**
+	 * Permet d'ajouter un noeud ‡ un graphe ‡ l'aide de son id.
+	 * @param n, id du noeud
+	 */
 	public void addNoeud(int n) {
-		/*		boolean trouve = false;
-
-		// recherche si un Noeud n apparait dans la liste
-		for(Noeud e : this.getNoeuds()) if (e.getId()==n) trouve = true;
-
-		// l'ajoute Sinon
-		if (! trouve) {
-			Noeud node= new Noeud(n);
-			this.getNoeuds().add(node);
-			this.getHmap().put(n, node);
-		}*/
-
 		if (this.getHmap().get(n)== null) {
 			Noeud node= new Noeud(n);
 			this.getNoeuds().add(node);
@@ -166,16 +64,14 @@ public class Graphe {
 
 	}
 
+	/**
+	 * Permet d'ajouter un arc.
+	 * @param x id du noeud de dÈpart
+	 * @param y id du noeud d'arrivÈ
+	 * @param c valeur de l'arc
+	 */
 	public void addArc(int x, int y, int c) {
-		//Verifie que x est dans le graphe
-		// Verifie que y est dans le graphe
-		// test si y est d√©ja successeur de x 
-		// l'ajoute Sinon
-		/*		Noeud noeudx=this.getNoeud(x);
-		Noeud noeudy=this.getNoeud(y);
-		if ( (noeudx != null) && (noeudy != null)) 
-			if ( !(noeudx.hasSuccesseur(y) ) ) 
-				new Arc(noeudx,noeudy);*/
+
 		if (this.getHmap().get(x) !=null && this.getHmap().get(y) != null) {
 			if ( !(this.getHmap().get(x).hasSuccesseur(y) )&& !(this.getHmap().get(y).hasSuccesseur(x)) )
 				new Arc(this.getHmap().get(x),this.getHmap().get(y), c);
@@ -184,33 +80,38 @@ public class Graphe {
 
 	}
 
+	/**
+	 * Retourne un noeud ‡ partir de son id.
+	 * @param n, id du noeud
+	 * @return le noeud
+	 */
 	public Noeud getNoeud(int n) {
-		//recherche l'√©l√©ment dans la liste 
-		/*				for (int i=0; i < this.getNoeuds().size(); i++) {
-					if (this.getNoeuds().get(i).getId()==n)
-						return (this.getNoeuds().get(i));
-				}
-				return null; */
+
 		return(this.getHmap().get(n));
 	}
 
-	@Override
-	public String toString() {
-		/*		Noeud n;
-		for (int i=0;i<10;i++) {
-			n = this.hmap.get(i+1);
-			System.out.println("HMAP" + n);
-		}*/
 
+	/**
+	 * Permet d'afficher le graphe.
+	 * @return une chaine de caractËre
+	 */
+	public String toString() {
 		return "Graphe [noeuds=" + getNoeuds() + "]";
 	}
 
+	/**
+	 * Construteur de graphe.
+	 */
 	public Graphe() {
 		super();
 		setNoeuds(new LinkedList<Noeud>());
 		setHmap(new HashMap<Integer, Noeud>());
 	}
 
+	/**
+	 * Constructeur du graphe avec l'insertion de k noeuds.
+	 * @param k, nombre de noeud voulu
+	 */
 	public Graphe(int k) {
 		super();
 		setNoeuds(new LinkedList<Noeud>());
@@ -223,6 +124,11 @@ public class Graphe {
 		}
 	}
 
+	/**
+	 * Contructeur du graphe provenant d'un ficher.
+	 * @param file, fichier pour construire le graphe
+	 * @throws IOException
+	 */
 	public Graphe(String file) throws IOException {
 		super();
 		setNoeuds(new LinkedList<Noeud>());
@@ -254,8 +160,9 @@ public class Graphe {
 		}
 	}
 
-	// Export díun graphe sous format CSV selon la liste de ses arcs
-	// Format Source : Target
+	/**
+	 * Permet d'exporter le graphe en CSV.
+	 */
 	public void export() {
 		String buff = "Source,Target,valeur\n";
 		String sep = ",";
@@ -277,18 +184,34 @@ public class Graphe {
 		}
 	}
 
+	/**
+	 * Retourne une liste de noeuds.
+	 * @return liste de noeuds
+	 */
 	public LinkedList<Noeud> getNoeuds() {
 		return noeuds;
 	}
 
+	/**
+	 * Permet de modifier la liste de noeuds.
+	 * @param noeuds, liste de noeuds
+	 */
 	public void setNoeuds(LinkedList<Noeud> noeuds) {
 		this.noeuds = noeuds;
 	}
 
+	/**
+	 * Permet de rÈcuperer un hashmap de noeuds.
+	 * @return un hashmap de noeud avec une assiociation identifiant/noeud
+	 */
 	public HashMap<Integer, Noeud> getHmap() {
 		return hmap;
 	}
 
+	/**
+	 * Permet de modifier le hashMap de noeuds.
+	 * @param hmap hashMap de noeud a modifier
+	 */
 	public void setHmap(HashMap<Integer, Noeud> hmap) {
 		this.hmap = hmap;
 	}
